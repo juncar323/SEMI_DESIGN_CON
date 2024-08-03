@@ -2,8 +2,7 @@ module conv1_buf #(parameter WIDTH = 28, HEIGHT = 36, DATA_BITS = 32)( // HEIGHT
    input clk,
    input rst_n, // synchronous reset
    input [DATA_BITS - 1:0] data_in,
-   output reg [DATA_BITS - 1:0] data_out_0, data_out_1, data_out_2, data_out_3, data_out_4,
-   data_out_5, data_out_6, data_out_7, data_out_8,
+   output reg [DATA_BITS - 1:0] data_out[0:8],
    output reg valid_out_buf
  );
 
@@ -24,15 +23,15 @@ module conv1_buf #(parameter WIDTH = 28, HEIGHT = 36, DATA_BITS = 32)( // HEIGHT
      buf_flag <= 0;
      state <= 0;
      valid_out_buf <= 0;
-     data_out_0 <= 32'bx;
-     data_out_1 <= 32'bx;
-     data_out_2 <= 32'bx;
-     data_out_3 <= 32'bx;
-     data_out_4 <= 32'bx;
-     data_out_5 <= 32'bx;
-     data_out_6 <= 32'bx;
-     data_out_7 <= 32'bx;
-     data_out_8 <= 32'bx;
+      data_out[0] <= 32'bx;
+      data_out[1] <= 32'bx;
+      data_out[2] <= 32'bx;
+      data_out[3] <= 32'bx;
+      data_out[4] <= 32'bx;
+      data_out[5] <= 32'bx;
+      data_out[6] <= 32'bx;
+      data_out[7] <= 32'bx;
+      data_out[8] <= 32'bx;
  /*------------------------------*/    
  
  
@@ -74,43 +73,43 @@ module conv1_buf #(parameter WIDTH = 28, HEIGHT = 36, DATA_BITS = 32)( // HEIGHT
 
      // Buffer Selection -> 3x3
      if(buf_flag == 3'd0) begin
-       data_out_0 <= buffer[w_idx];
-       data_out_1 <= buffer[w_idx + 1];
-       data_out_2 <= buffer[w_idx + 2];
+        data_out[0] <= buffer[w_idx];
+        data_out[1] <= buffer[w_idx + 1];
+        data_out[2] <= buffer[w_idx + 2];
        
-       data_out_3 <= buffer[w_idx + WIDTH];
-       data_out_4 <= buffer[w_idx + WIDTH + 1];
-       data_out_5 <= buffer[w_idx + WIDTH + 2];
+        data_out[3] <= buffer[w_idx + WIDTH];
+        data_out[4] <= buffer[w_idx + WIDTH + 1];
+        data_out[5] <= buffer[w_idx + WIDTH + 2];
        
-       data_out_6 <= buffer[w_idx + WIDTH*2];
-       data_out_7 <= buffer[w_idx + WIDTH*2 + 1];
-       data_out_8 <= buffer[w_idx + WIDTH*2 + 2];
+        data_out[6] <= buffer[w_idx + WIDTH*2];
+        data_out[7] <= buffer[w_idx + WIDTH*2 + 1];
+        data_out[8] <= buffer[w_idx + WIDTH*2 + 2];
 
      end else if(buf_flag == 3'd1) begin
-       data_out_0 <= buffer[w_idx + WIDTH];
-       data_out_1 <= buffer[w_idx + WIDTH + 1];
-       data_out_2 <= buffer[w_idx + WIDTH + 2];
+        data_out[0] <= buffer[w_idx + WIDTH];
+        data_out[1] <= buffer[w_idx + WIDTH + 1];
+        data_out[2] <= buffer[w_idx + WIDTH + 2];
        
-       data_out_3 <= buffer[w_idx + WIDTH * 2];
-       data_out_4 <= buffer[w_idx + WIDTH * 2 + 1];
-       data_out_5 <= buffer[w_idx + WIDTH * 2 + 2];
+        data_out[3] <= buffer[w_idx + WIDTH * 2];
+        data_out[4] <= buffer[w_idx + WIDTH * 2 + 1];
+        data_out[5] <= buffer[w_idx + WIDTH * 2 + 2];
        
-       data_out_6 <= buffer[w_idx];
-       data_out_7 <= buffer[w_idx + 1];
-       data_out_8 <= buffer[w_idx + 2];
+        data_out[6] <= buffer[w_idx];
+        data_out[7] <= buffer[w_idx + 1];
+        data_out[8] <= buffer[w_idx + 2];
 
      end else if(buf_flag == 3'd2) begin
-       data_out_0 <= buffer[w_idx + WIDTH * 2];
-       data_out_1 <= buffer[w_idx + WIDTH * 2 + 1];
-       data_out_2 <= buffer[w_idx + WIDTH * 2 + 2];
+        data_out[0] <= buffer[w_idx + WIDTH * 2];
+        data_out[1] <= buffer[w_idx + WIDTH * 2 + 1];
+        data_out[2] <= buffer[w_idx + WIDTH * 2 + 2];
        
-       data_out_3 <= buffer[w_idx];
-       data_out_4 <= buffer[w_idx + 1];
-       data_out_5 <= buffer[w_idx + 2];
+        data_out[3] <= buffer[w_idx];
+        data_out[4] <= buffer[w_idx + 1];
+        data_out[5] <= buffer[w_idx + 2];
        
-       data_out_6 <= buffer[w_idx + WIDTH];
-       data_out_7 <= buffer[w_idx + WIDTH + 1];
-       data_out_8 <= buffer[w_idx + WIDTH + 2];
+        data_out[6] <= buffer[w_idx + WIDTH];
+        data_out[7] <= buffer[w_idx + WIDTH + 1];
+        data_out[8] <= buffer[w_idx + WIDTH + 2];
 
      end
    end
