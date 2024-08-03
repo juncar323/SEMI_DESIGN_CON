@@ -37,13 +37,13 @@ module conv2_buf #(parameter WIDTH = 15, HEIGHT = 19, DATA_BITS = 32)(
  
    end else begin
    buf_idx <= buf_idx + 1;
-   if(buf_idx == WIDTH * FILTER_SIZE - 1) begin // buffer size = 84 = 28(w) * 3(h)
+      if(buf_idx == WIDTH * FILTER_SIZE - 1) begin // buffer size = 45 = 15(w) * 3(h)
      buf_idx <= 0;
    end
    
    buffer[buf_idx] <= data_in;  // data input
      
-   // Wait until first 84 input data filled in buffer
+   // Wait until first 45 input data filled in buffer
    if(!state) begin
      if(buf_idx == WIDTH * FILTER_SIZE - 1) begin
        state <= 1'b1; 
@@ -60,7 +60,7 @@ module conv2_buf #(parameter WIDTH = 15, HEIGHT = 19, DATA_BITS = 32)(
        end
        w_idx <= 0;
 
-       if(h_idx == HEIGHT - FILTER_SIZE) begin  // done 1 input read -> 28 * 28
+       if(h_idx == HEIGHT - FILTER_SIZE) begin  
          h_idx <= 0;
          state <= 1'b0;
        end 
