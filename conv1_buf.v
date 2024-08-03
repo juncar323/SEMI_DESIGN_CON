@@ -14,9 +14,9 @@ module conv1_buf #(parameter WIDTH = 28, HEIGHT = 36, DATA_BITS = 32)( // HEIGHT
  reg [1:0] buf_flag;  // To express 0, 1, 2 (3 state)
  reg state;
 
- always @(posedge clk) begin
+ always @(posedge clk or negedge rst_n) begin
  /*--------- reset code ----------*/  
-   if(~rst_n) begin
+   if(!rst_n) begin
      buf_idx <= -1; // At next cycle, buf_idx will be zero.
      w_idx <= 0;
      h_idx <= 0;
@@ -116,44 +116,3 @@ module conv1_buf #(parameter WIDTH = 28, HEIGHT = 36, DATA_BITS = 32)( // HEIGHT
    end
  end
 endmodule
-
-
-
-/* test bench
-`timescale 1ns / 1ps
-
-module tb_conv1_buf();
-reg clk;
-reg rst_n;
-wire [31:0] data_out_0, data_out_1, data_out_2, data_out_3, data_out_4, data_out_5, data_out_6, data_out_7, data_out_8;
-reg [31:0] data_in;
-wire valid_out_buf;
-conv1_buf #(.WIDTH(28), .HEIGHT(36), .DATA_BITS(32)) conv1_buf (
-   .clk(clk),
-   .rst_n(rst_n),
-   .data_in(data_in),
-   .data_out_0(data_out_0),
-   .data_out_1(data_out_1),
-   .data_out_2(data_out_2),
-   .data_out_3(data_out_3),
-   .data_out_4(data_out_4),
-   .data_out_5(data_out_5),
-   .data_out_6(data_out_6),
-   .data_out_7(data_out_7),
-   .data_out_8(data_out_8),
-   .valid_out_buf(valid_out_buf)
-   );
-initial fork
-clk = 0;
-forever #40 clk = ~clk;
-#10 forever #80 data_in = $random;
-rst_n = 0;
-#50 
-rst_n = 1;
-#16000 
-$stop;
-
-join
-
-endmodule */
-
