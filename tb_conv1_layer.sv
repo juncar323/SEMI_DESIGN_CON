@@ -1,5 +1,5 @@
 // Testbench for Conv1_layer
-
+// 이 코드의 모든 conv1 을 conv2 or conv3로 바꾸면 conv2,3의 testbench로 활용 가능.
 `timescale 1ns / 1ps
 
 
