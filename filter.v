@@ -1,13 +1,32 @@
 `timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 08/02/2024 02:17:05 PM
+// Design Name: 
+// Module Name: filter
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
 
-module filter (  
-   input valid_out_buf,
-   input rst_n,
+
+module filter ( 
    input clk,
+   input rst_n,
    input [31:0] bias,
-   input [31:0] weight_0, weight_1, weight_2, weight_3, weight_4, weight_5, weight_6, weight_7, weight_8,
+   input [31:0] weight[0:8],
    // kernel size = 3 x 3, so input data is 9.
-   input [31:0] data_out_0, data_out_1, data_out_2, data_out_3, data_out_4,data_out_5, data_out_6, data_out_7, data_out_8,                                     
+   input [31:0] data_out [0:8],                                     
    output reg [31:0] filter_out
  );
 
@@ -21,82 +40,76 @@ module filter (
  
  
  
-/* initial begin
-   $readmemh("conv1_weight_16.txt", weight); 
-   $readmemh("conv1_bias_16.txt", bias);
- end */
-
- 
 /*--- float multiplier instatiation ---*/
 fmultiplier fmulti_0 (
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_0),
-    .b(weight_0),
+    .a(data_out[0]),
+    .b(weight[0]),
     .z(mul_out_0),
     .valid(mul_valid_0)
     );
 fmultiplier fmulti_1(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_1),
-    .b(weight_1),
+    .a(data_out[1]),
+    .b(weight[1]),
     .z(mul_out_1),
     .valid(mul_valid_1)
     );
 fmultiplier fmulti_2(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_2),
-    .b(weight_2),
+    .a(data_out[2]),
+    .b(weight[2]),
     .z(mul_out_2),
     .valid(mul_valid_2)
     );
 fmultiplier fmulti_3(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_3),
-    .b(weight_3),
+    .a(data_out[3]),
+    .b(weight[3]),
     .z(mul_out_3),
     .valid(mul_valid_3)
     );
 fmultiplier fmulti_4(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_4),
-    .b(weight_4),
+    .a(data_out[4]),
+    .b(weight[4]),
     .z(mul_out_4),
     .valid(mul_valid_4)
     );      
 fmultiplier fmulti_5(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_5),
-    .b(weight_5),
+    .a(data_out[5]),
+    .b(weight[5]),
     .z(mul_out_5),
     .valid(mul_valid_5)
     );
 fmultiplier fmulti_6(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_6),
-    .b(weight_6),
+    .a(data_out[6]),
+    .b(weight[6]),
     .z(mul_out_6),
     .valid(mul_valid_6)
     );
 fmultiplier fmulti_7(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_7),
-    .b(weight_7),
+    .a(data_out[7]),
+    .b(weight[7]),
     .z(mul_out_7),
     .valid(mul_valid_7)
     );
 fmultiplier fmulti_8(
     .clk(clk),
     .rst_n(rst_n),
-    .a(data_out_8),
-    .b(weight_8),
+    .a(data_out[8]),
+    .b(weight[8]),
     .z(mul_out_8),
     .valid(mul_valid_8)
     );
