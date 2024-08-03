@@ -12,7 +12,6 @@ module filter (
  );
 
  localparam FILTER_SIZE = 3; // kenrel size = 3 x 3, so FILTER_SIZE = 3
- localparam CHANNEL_LEN = 32; // number of filters in conv1 layer is 32.
 
  /*----- number of filters in conv1 layer is 32, so number of weight in conv1 layer is also 32. -----*/
  wire [31:0] mul_out_0, mul_out_1, mul_out_2, mul_out_3, mul_out_4, mul_out_5, mul_out_6, mul_out_7, mul_out_8;
